@@ -35,7 +35,8 @@ jobs:
           command: php composer.phar install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader --prefer-source
       - save_cache:
           key: composer-v1-{{ checksum "composer.lock" }}
-          command: cp .env.example .env
+          paths:
+          - vendor
       - run:
           name: Copy env file
           command: cp .env.example .env

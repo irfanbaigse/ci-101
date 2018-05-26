@@ -25,18 +25,17 @@ jobs:
           name: Display PHP information
           command: |
             php -v
-            php composer.phar --version
-     - restore_cache: # special step to restore the dependency cache if `composer.lock` does not change
+            php composer.phar --version         
+      - restore_cache:
           keys:
             - composer-v1-{{ checksum "composer.lock" }}
-            - composer-v1-            
+            - composer-v1-          
       - run:
           name: Install project dependencies
           command: php composer.phar install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader --prefer-source
-     - save_cache: # special step to save the dependency cache with the `composer.lock` cache key template
+      - save_cache:
           key: composer-v1-{{ checksum "composer.lock" }}
-          paths:
-            - vendor
+          command: cp .env.example .env
       - run:
           name: Copy env file
           command: cp .env.example .env

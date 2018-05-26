@@ -30,6 +30,9 @@ jobs:
           name: Install project dependencies
           command: php composer.phar install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader --prefer-source
       - run:
+          name: Copy env file
+          command: cp .env.example .env
+      - run:
           name: Generate Key
           command: php artisan key:generate
       # - run:
